@@ -1,7 +1,9 @@
 {
     "name": "LevelSelector",
     "rootNamespace": "Heaj.LevelSelector",
-    "references": [],
+    "references": [
+        "GUID:9cfed55d4a8f6d640ab0647602999ea1"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

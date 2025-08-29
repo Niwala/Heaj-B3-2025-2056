@@ -1,4 +1,7 @@
+using SamsBackpack.SubstanceReimporter;
+
 using System.Collections.Generic;
+using System.IO;
 
 using UnityEngine;
 
@@ -25,11 +28,15 @@ namespace Heaj.LevelSelector
         private Vector3 size => new Vector3(bounds.size.x, 0.01f, bounds.size.y);
 
         public bool generate;
-        public bool render;
+        public bool saveExample;
 
         public ComputeShader mapGeneratorShader;
         public RenderTexture mapSourceTex;
         public Texture2D icons;
+        public SubstanceGraph substance;
+
+        public Transform sourcePlane;
+        public Material sourceMaterial;
 
         public Transform resultPlane;
         public Material resultMaterial;
@@ -46,15 +53,19 @@ namespace Heaj.LevelSelector
                 Relax();
                 ComputeBounds();
                 Render();
+                ExecuteSubstance();
 
-                resultPlane.transform.position = center;
+                sourcePlane.transform.position = center + Vector3.right * 12;
+                sourcePlane.transform.localScale = size * 0.1f;
+
+                resultPlane.transform.position = center + Vector3.right * 24;
                 resultPlane.transform.localScale = size * 0.1f;
             }
 
-            if (render)
+            if (saveExample)
             {
-                render = false;
-
+                saveExample = false;
+                SaveExample();
             }
         }
 
@@ -218,10 +229,40 @@ namespace Heaj.LevelSelector
             mapGeneratorShader.SetTexture(kernel, "_Result", mapSourceTex);
 
             mapGeneratorShader.Dispatch(kernel, Mathf.CeilToInt(mapSourceTex.width / 8.0f), Mathf.CeilToInt(mapSourceTex.height / 8.0f), 1);
-            resultMaterial.SetTexture("_BaseMap", mapSourceTex);
+            sourceMaterial.SetTexture("_BaseMap", mapSourceTex);
 
             iconBuffer.Release();
             capsuleBuffer.Release();
+        }
+
+        private void ExecuteSubstance()
+        {
+            Texture2D tempTex = new Texture2D(mapSourceTex.width, mapSourceTex.height);
+            RenderTexture.active = mapSourceTex;
+            tempTex.ReadPixels(new Rect(0, 0, tempTex.width, tempTex.height), 0, 0);
+            tempTex.Apply();
+            RenderTexture.active = null;
+
+            substance.SetOutputSize(tempTex.width, tempTex.height);
+            substance.SetTexture("Source", tempTex);
+            substance.Render(null);
+            resultMaterial.SetTexture("_BaseMap", substance.GetOutput(0));
+            //substance.SetInputTexture("Source", tempTex);
+            //substance.Render();
+            //Texture2D result = substance.GetOutputTexture("Result");
+
+            //resultMaterial.SetTexture("_BaseMap", result);
+        }
+
+        private void SaveExample()
+        {
+            Texture2D tempTex = new Texture2D(mapSourceTex.width, mapSourceTex.height);
+            RenderTexture.active = mapSourceTex;
+            tempTex.ReadPixels(new Rect(0, 0, tempTex.width, tempTex.height), 0, 0);
+            tempTex.Apply();
+            RenderTexture.active = null;
+
+            File.WriteAllBytes("Assets/Example.tga", tempTex.EncodeToTGA());
         }
 
         private int[] EmtpyGroup()

@@ -4,13 +4,14 @@
 //! @date 20210609
 //! @copyright Adobe. All rights reserved.
 
-using System;
-using System.Runtime.InteropServices;
-using UnityEngine;
-
 using Adobe.Substance.Input;
 using Adobe.Substance.Input.Description;
+
+using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
+using UnityEngine;
 
 namespace Adobe.Substance
 {

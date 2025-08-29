@@ -41,7 +41,6 @@ float SegmentDist(float2 p, float2 a, float2 b)
 void CSMain(uint3 id : SV_DispatchThreadID)
 {
 	float2 uv = id.xy * _InvTexSize;
-	uv = 1.0 - uv;
 	float4 color = 0;
     
     //Icons

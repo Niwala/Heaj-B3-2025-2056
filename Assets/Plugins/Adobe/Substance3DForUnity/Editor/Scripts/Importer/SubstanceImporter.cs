@@ -196,7 +196,7 @@ namespace Adobe.SubstanceEditor.Importer
     /// <summary>
     /// Importer for Substance Material Assets using the .sbsar extension .
     /// </summary>
-    [ScriptedImporter(Adobe.Substance.Version.ImporterVersion, "sbsar")]
+    //[ScriptedImporter(Adobe.Substance.Version.ImporterVersion, "sbsar")]
     public sealed class SubstanceImporter : ScriptedImporter
     {
         [SerializeField]
