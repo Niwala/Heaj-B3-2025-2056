@@ -2,6 +2,7 @@ using SamsBackpack.SubstanceReimporter;
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 using UnityEngine;
 
@@ -16,6 +17,8 @@ namespace Heaj.LevelSelector
         public int maxWidth = 3;
 
         public float padding = 0.1f;
+
+        public int resolution = 4096;
 
         public const float relaxStepForce = 0.3f;
         public const int relaxStepCount = 60;
@@ -32,7 +35,7 @@ namespace Heaj.LevelSelector
 
         public ComputeShader mapGeneratorShader;
         public RenderTexture mapSourceTex;
-        public Texture2D icons;
+        public RoomChances roomDatabase;
         public SubstanceGraph substance;
 
         public Transform sourcePlane;
@@ -184,9 +187,63 @@ namespace Heaj.LevelSelector
         {
             if (mapSourceTex == null)
             {
-                mapSourceTex = new RenderTexture(1024, 1024, 0);
+                mapSourceTex = new RenderTexture(resolution, resolution, 0);
                 mapSourceTex.enableRandomWrite = true;
                 mapSourceTex.name = "MapSource";
+            }
+
+
+            //Randomize rooms
+            int[] unorderedRoomIDs = new int[levels.Count - 2]; //-2 : Don't include start & end
+            for (int i = 0; i < unorderedRoomIDs.Length; i++)
+                unorderedRoomIDs[i] = i + 1; // + 1 : Avoid start
+            unorderedRoomIDs = unorderedRoomIDs.OrderBy(x => Random.Range(0.0f, 1.0f)).ToArray();
+
+            //Assign required rooms and build chance table for default rooms
+            List<Vector2Int> chanceTable = new List<Vector2Int>();
+            List<int> requiredRooms = new List<int>();
+            Dictionary<int, int> roomMap = new Dictionary<int, int>();
+
+            int chancesCount = 0;
+            int assignedRoomsCursor = 0;
+            for (int i = 0; i < roomDatabase.rooms.Length; i++)
+            {
+                Room room = roomDatabase.rooms[i];
+
+                switch (room.type)
+                {
+                    case RoomType.Start: roomMap.Add(0, i); break;
+                    case RoomType.End: roomMap.Add(levels.Count - 1, i); break;
+
+                    case RoomType.Default:
+                            chancesCount += room.chances;
+                            chanceTable.Add(new Vector2Int(chancesCount, i));
+                        break;
+
+                    case RoomType.Required:
+                        int count = Random.Range(room.requireCount.x, room.requireCount.y);
+                        for (int j = 0; j < count; j++)
+                        {
+                            if (assignedRoomsCursor >= unorderedRoomIDs.Length)
+                            {
+                                Debug.LogError("Not enough room in level for all the required rooms.");
+                                continue;
+                            }
+                            roomMap.Add(unorderedRoomIDs[assignedRoomsCursor++], i);
+                        }
+                     break;
+                }
+            }
+
+            //Assign default rooms
+            for (int i = assignedRoomsCursor; i < unorderedRoomIDs.Length; i++)
+            {
+                //Get random room
+                int rnd = Random.Range(0, chancesCount);
+                int j = 0;
+                while (rnd > chanceTable[j].x)
+                    j++;
+                roomMap.Add(unorderedRoomIDs[i], chanceTable[j].y);
             }
 
             //Icon buffer
@@ -198,7 +255,7 @@ namespace Heaj.LevelSelector
                 {
                     center = Rect.PointToNormalized(bounds, levels[i].center),
                     size = iconSize,
-                    tileCoords = new Vector4(0, 0.666f, 0.333f, 1)
+                    tileCoords = roomDatabase.GetRoomUvs(roomMap[i])
                 };
             }
             iconBuffer.SetData(icons);
@@ -225,7 +282,7 @@ namespace Heaj.LevelSelector
             mapGeneratorShader.SetVector("_InvTexSize", new Vector2(1.0f / mapSourceTex.width, 1.0f / mapSourceTex.height));
             mapGeneratorShader.SetBuffer(kernel, "_Icons", iconBuffer);
             mapGeneratorShader.SetBuffer(kernel, "_Capsules", capsuleBuffer);
-            mapGeneratorShader.SetTexture(kernel, "_IconSource", this.icons);
+            mapGeneratorShader.SetTexture(kernel, "_IconSource", roomDatabase.texture);
             mapGeneratorShader.SetTexture(kernel, "_Result", mapSourceTex);
 
             mapGeneratorShader.Dispatch(kernel, Mathf.CeilToInt(mapSourceTex.width / 8.0f), Mathf.CeilToInt(mapSourceTex.height / 8.0f), 1);
@@ -243,6 +300,7 @@ namespace Heaj.LevelSelector
             tempTex.Apply();
             RenderTexture.active = null;
 
+            Debug.Log(tempTex.width);
             substance.SetOutputSize(tempTex.width, tempTex.height);
             substance.SetTexture("Source", tempTex);
             substance.Render(null);

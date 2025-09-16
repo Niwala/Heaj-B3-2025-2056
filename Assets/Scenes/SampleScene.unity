@@ -146,7 +146,7 @@ Transform:
   m_GameObject: {fileID: 19811751}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.7, y: 0, z: 1.7322128}
+  m_LocalPosition: {x: 25.7, y: 0, z: 1.8403282}
   m_LocalScale: {x: 1.0600001, y: 0.001, z: 1.0600001}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -502,19 +502,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: LevelSelector::Heaj.LevelSelector.LevelSelection
   worldDepth: 8
-  maxWidth: 4
+  maxWidth: 5
   padding: 1.6
+  resolution: 4096
   generate: 0
   saveExample: 0
   mapGeneratorShader: {fileID: 7200000, guid: 1a8eb8205da1cca48b94e1eb9fece4d3, type: 3}
-  mapSourceTex: {fileID: 725728266}
-  icons: {fileID: 2800000, guid: 4e5288d7e3b43234c98a3641f6f666d9, type: 3}
-  substance: {fileID: -1279677742189961354, guid: 6d2951178a1bf074e910403f513de4c2, type: 3}
+  mapSourceTex: {fileID: 1935354429}
+  roomDatabase: {fileID: 11400000, guid: e7ce3e0146754154a9463a2c6a1e334c, type: 2}
+  substance: {fileID: -1279677742189961354, guid: 8487d020215450c469d2bc3bb8dc0575, type: 3}
   sourcePlane: {fileID: 1622118419}
   sourceMaterial: {fileID: 2100000, guid: 4def72d2cbf70c54fa51dee4eca4d30b, type: 2}
   resultPlane: {fileID: 19811752}
   resultMaterial: {fileID: 2100000, guid: c8c452f3a04a6bf468b5a9ee53b03d3c, type: 2}
-  iconSize: 0.05
+  iconSize: 0.022
   lineThickness: 0.001
 --- !u!4 &476348293
 Transform:
@@ -533,43 +534,6 @@ Transform:
   - {fileID: 19811752}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &725728266
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: MapSource
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 6
-  m_Width: 1024
-  m_Height: 1024
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthStencilFormat: 0
-  m_ColorFormat: 4
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_UseDynamicScaleExplicit: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_EnableRandomWrite: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,24 +612,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0e3ca991f1b1f4d9a65196828c5e26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RuntimeSubstance
-  GraphSO: {fileID: 11400000, guid: 2df5eee666c8e3b4599f0d73ec465587, type: 2}
-  _resolutionInput:
-    Index: 0
-    Description:
-      Identifier: 
-      Label: 
-      GuiGroup: 
-      GuiDescription: 
-      Type: 0
-      WidgetType: 0
-    Data: {x: 0, y: 0}
-    NumericalDescription:
-      DefaultValue: {x: 0, y: 0}
-      MinValue: {x: 0, y: 0}
-      MaxValue: {x: 0, y: 0}
-      SliderClamp: 0
-      EnumValueCount: 0
-      EnumValues: []
 --- !u!4 &1103180857
 Transform:
   m_ObjectHideFlags: 0
@@ -708,7 +654,7 @@ Transform:
   m_GameObject: {fileID: 1622118418}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.1, y: 0, z: 1.7322128}
+  m_LocalPosition: {x: 15.1, y: 0, z: 1.8403282}
   m_LocalScale: {x: 1.0600001, y: 0.001, z: 1.0600001}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -770,6 +716,43 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1622118418}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!84 &1935354429
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MapSource
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 6
+  m_Width: 4096
+  m_Height: 4096
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 0
+  m_ColorFormat: 4
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_UseDynamicScaleExplicit: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
