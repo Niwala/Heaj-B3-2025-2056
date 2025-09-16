@@ -55,10 +55,10 @@ namespace Heaj.LevelSelector
                 Render();
                 ExecuteSubstance();
 
-                sourcePlane.transform.position = center + Vector3.right * 12;
+                sourcePlane.transform.position = center + Vector3.right * (worldDepth + 1 + padding);
                 sourcePlane.transform.localScale = size * 0.1f;
 
-                resultPlane.transform.position = center + Vector3.right * 24;
+                resultPlane.transform.position = center + Vector3.right * (worldDepth + 1 + padding) * 2;
                 resultPlane.transform.localScale = size * 0.1f;
             }
 
