@@ -41,6 +41,7 @@ public class PlyImporter : ScriptedImporter
                     if (line.StartsWith(elementCount))
                     {
                         int voxelCount = int.Parse(line.Remove(0, elementCount.Length));
+                        main.count = voxelCount;
                         main.colors = new Vector3[voxelCount];
                         main.positions = new Vector3[voxelCount];
                     }
