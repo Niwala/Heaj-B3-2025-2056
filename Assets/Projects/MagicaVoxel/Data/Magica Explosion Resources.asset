@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6e83fe312a37444b3c384d70a0602b, type: 3}
+  m_Name: Magica Explosion Resources
+  m_EditorClassIdentifier: Assembly-CSharp::MagicaExplosionResources
+  explodeKey:
+    m_Name: Explode Key
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2db2729f-d59a-406d-a3ca-ed73826cb9b1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  explosionEffect: {fileID: 8926484042661614526, guid: e62e3368164844745967bbd27346448d, type: 3}
+  modelMaterial: {fileID: 2100000, guid: 73c69c45058410a41b901a533b20642a, type: 2}

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 
+using UnityEditor;
 using UnityEditor.AssetImporters;
 
 using UnityEngine;
+using UnityEngine.VFX;
 
 [ScriptedImporter(0, ext)]
 public class PlyImporter : ScriptedImporter
@@ -41,6 +43,9 @@ public class PlyImporter : ScriptedImporter
                     if (line.StartsWith(elementCount))
                     {
                         int voxelCount = int.Parse(line.Remove(0, elementCount.Length));
+                        main.count = voxelCount;
+                        main.hash = new Hash128();
+                        main.hash.Append(main.count);
                         main.colors = new Vector3[voxelCount];
                         main.positions = new Vector3[voxelCount];
                     }
@@ -55,9 +60,21 @@ public class PlyImporter : ScriptedImporter
                 //Read voxel
                 else
                 {
+                    //Read data
                     (Vector3 position, Vector3 color) = ReadVoxelLine(line);
-                    main.positions[voxelID] = position * 0.1f;
+
+                    //Apply settings
+                    position *= scaling;
+                    if (useGammaCorrection)
+                        color = ApplyGammaCorrection(color);
+
+                    //Save voxel
+                    main.positions[voxelID] = position;
                     main.colors[voxelID] = color;
+
+                    main.hash.Append(position);
+                    main.hash.Append(color);
+
                     voxelID++;
                 }
             }
@@ -66,7 +83,14 @@ public class PlyImporter : ScriptedImporter
         //Add main object
         ctx.AddObjectToAsset("main", main);
         ctx.SetMainObject(main);
+    }
 
+    private Vector3 ApplyGammaCorrection(Vector3 color)
+    {
+        color.x = Mathf.Pow(color.x, gammaCorrection);
+        color.y = Mathf.Pow(color.y, gammaCorrection);
+        color.z = Mathf.Pow(color.z, gammaCorrection);
+        return color;
     }
 
     private static (Vector3 position, Vector3 color) ReadVoxelLine(string line)
@@ -75,13 +99,13 @@ public class PlyImporter : ScriptedImporter
 
         Vector3 position = new Vector3(
             -int.Parse(values[0]),
-            -int.Parse(values[2]),
-            int.Parse(values[1]));
+            int.Parse(values[2]),
+            -int.Parse(values[1]));
 
         Vector3 color = new Vector3(
-            Mathf.Pow(int.Parse(values[3]) / 255.0f, gammaCorrection),
-            Mathf.Pow(int.Parse(values[4]) / 255.0f, gammaCorrection),
-            Mathf.Pow(int.Parse(values[5]) / 255.0f, gammaCorrection));
+            int.Parse(values[3]) / 255.0f,
+            int.Parse(values[4]) / 255.0f,
+            int.Parse(values[5]) / 255.0f);
 
         return (position, color);
     }
