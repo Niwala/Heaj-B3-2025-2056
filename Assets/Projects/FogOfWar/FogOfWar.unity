@@ -167,6 +167,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5025049250911594519, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -1461304994638716399, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -175,9 +179,21 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: a1156389e6debaa40b3952186ec7df7a, type: 2}
+    - target: {fileID: -516098083770646512, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
       propertyPath: m_Name
       value: model (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416272007918961125, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -276,7 +292,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 2.61, y: 6.33, z: -2.52}
+  m_LocalPosition: {x: 2.42, y: 6.33, z: -2.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -299,7 +315,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -424,6 +440,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 435dd6983e0631f45ac8d4a8866f59d4, type: 3}
       propertyPath: m_Name
       value: Pflanze (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 435dd6983e0631f45ac8d4a8866f59d4, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -610,6 +630,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5025049250911594519, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -1461304994638716399, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -618,9 +642,21 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: a1156389e6debaa40b3952186ec7df7a, type: 2}
+    - target: {fileID: -516098083770646512, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
       propertyPath: m_Name
       value: model
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416272007918961125, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -680,6 +716,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5025049250911594519, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -1461304994638716399, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -688,9 +728,21 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: a1156389e6debaa40b3952186ec7df7a, type: 2}
+    - target: {fileID: -516098083770646512, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
       propertyPath: m_Name
       value: model (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416272007918961125, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -931,6 +983,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pflanze (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 435dd6983e0631f45ac8d4a8866f59d4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -990,6 +1046,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c4c54970cf3b4b6428592ca7a9bbbaa7, type: 3}
+      propertyPath: m_CastShadows
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c4c54970cf3b4b6428592ca7a9bbbaa7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 2589df079af47e140829b7cb6f2886a4, type: 2}
@@ -999,7 +1059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4c54970cf3b4b6428592ca7a9bbbaa7, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1103,6 +1163,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pflanze (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 435dd6983e0631f45ac8d4a8866f59d4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1161,6 +1225,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5025049250911594519, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -1461304994638716399, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -1169,9 +1237,21 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: a1156389e6debaa40b3952186ec7df7a, type: 2}
+    - target: {fileID: -516098083770646512, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
       propertyPath: m_Name
       value: model (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416272007918961125, guid: 91943dac0970e7749b68c5ab7a484ca4, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1250,6 +1330,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 435dd6983e0631f45ac8d4a8866f59d4, type: 3}
       propertyPath: m_Name
       value: Pflanze
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 435dd6983e0631f45ac8d4a8866f59d4, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
