@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbda4c73f5ba5064fabb69d434bd727b, type: 3}
   m_Name: FogBuffer B
   m_EditorClassIdentifier: Assembly-CSharp::TextureInfo
-  source: 1
+  source: 0
   enableRandomWrite: 0
   clear: 0
   clearColor: {r: 0, g: 0, b: 0, a: 0}
   wrapMode: 1
   filterMode: 1
-  customGraphicFormat: 0
-  graphicFormat: 0
-  sizeMode: 0
-  screenRatio: 0
-  fixedSize: {x: 0, y: 0}
+  customGraphicFormat: 1
+  graphicFormat: 21
+  sizeMode: 1
+  screenRatio: 0.5
+  fixedSize: {x: 512, y: 512}

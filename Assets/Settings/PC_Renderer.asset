@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RenderToTexture
   m_Active: 1
   renderPassEvent: 300
+  cameraTypeMask: 19
   target: {fileID: 11400000, guid: c3a038307aa8c3745939364fc52d7f19, type: 2}
   layerMask:
     serializedVersion: 2
@@ -38,10 +39,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: RenderFeatureStash::SamsBackpack.RenderFeatureStash.StashPingPongFeature
   m_Active: 1
   renderPassEvent: 300
+  cameraTypeMask: 25
   fullScreenMaterial: {fileID: -876546973899608171, guid: 642c6d20ba7dc014090ca70fab181185, type: 3}
   textureA: {fileID: 11400000, guid: bd38963458f8833449ae6dd03cc142bd, type: 2}
   textureB: {fileID: 11400000, guid: fbdbdf912d1e0ce49a2385119c44a631, type: 2}
-  blitCount: 2
+  sourceTexName: _SourceTex
+  blitCount: 12
   inputs: []
 --- !u!114 &-1777768589878819910
 MonoBehaviour:
@@ -57,6 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FullscreenPassToTexture
   m_Active: 1
   renderPassEvent: 300
+  cameraTypeMask: 25
   fullScreenMaterial: {fileID: -876546973899608171, guid: 505c450526e81d44bb32ed7a218179dc, type: 3}
   inputs:
   - propertyName: _Greyscale
@@ -137,6 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: RenderFeatureStash::SamsBackpack.RenderFeatureStash.FullscreenPassToTexture
   m_Active: 1
   renderPassEvent: 300
+  cameraTypeMask: 25
   fullScreenMaterial: {fileID: 2100000, guid: 06894b926a9e2d843b768c49ded76fb5, type: 2}
   inputs:
   - propertyName: _SceneColor

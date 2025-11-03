@@ -53,8 +53,8 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Wall_Extrude: 20
-    - _Wall_Height: 2.57
+    - _Wall_Extrude: 9.68
+    - _Wall_Height: 2.4
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

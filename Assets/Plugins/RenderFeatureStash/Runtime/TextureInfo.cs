@@ -18,40 +18,18 @@ namespace SamsBackpack.RenderFeatureStash
         public StashSizeMode sizeMode;
         public float screenRatio = 0.5f;
         public Vector2Int fixedSize = new Vector2Int(512, 512);
-
-        public ScaleFunc ScaleFunc
-        {
-            get
-            {
-                switch (sizeMode)
-                {
-                    default: return ScreenSizeScaleFunc;
-                    case StashSizeMode.ScreenRatio: return ScreenRatioScaleFunc;
-                    case StashSizeMode.FixedSize: return FixedSizeScaleFunc;
-                }
-            }
-        }
-
-        public Vector2Int ScreenSizeScaleFunc(Vector2Int screenSize)
-        {
-            return screenSize;
-        }
-
-        public Vector2Int ScreenRatioScaleFunc(Vector2Int screenSize)
-        {
-            return new Vector2Int(Mathf.RoundToInt(screenSize.x * screenRatio), Mathf.RoundToInt(screenSize.y * screenRatio));
-        }
-
-        public Vector2Int FixedSizeScaleFunc(Vector2Int screenSize)
-        {
-            return fixedSize;
-        }
     }
 
     public enum Source
     {
+        Custom,
         CameraColor,
-        Custom
+        CameraDepth,
+        CameraNormal,
+        CameraColorCopy,
+        CameraDepthCopy,
+        SSAO,
+        AfterPostProcessColor,
     }
 
     public enum StashSizeMode

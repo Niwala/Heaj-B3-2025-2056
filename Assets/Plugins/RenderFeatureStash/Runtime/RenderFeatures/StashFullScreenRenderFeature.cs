@@ -7,19 +7,20 @@ using System.Collections.Generic;
 
 namespace SamsBackpack.RenderFeatureStash
 {
-    public class FullscreenPassToTexture : ScriptableRendererFeature
+    public class StashFullScreenRenderFeature : ScriptableRendererFeature
     {
         public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
+        public CameraType cameraTypeMask = CameraType.Game | CameraType.SceneView | CameraType.Reflection | CameraType.VR;
         public Material fullScreenMaterial;
 
         public List<StashInput> inputs = new List<StashInput>();
         public TextureInfo target;
 
-        private FullscreenPassToTexturePass pass;
+        private FullScreenPass pass;
 
         public override void Create()
         {
-            pass = new FullscreenPassToTexturePass();
+            pass = new FullScreenPass();
             pass.renderPassEvent = renderPassEvent;
         }
 
@@ -30,14 +31,14 @@ namespace SamsBackpack.RenderFeatureStash
             pass.target = target;
             pass.inputs = inputs;
 
-            if (fullScreenMaterial == null || target == null)
+            if (fullScreenMaterial == null || target == null || !cameraTypeMask.HasFlag(renderingData.cameraData.cameraType))
                 return;
 
             renderer.EnqueuePass(pass);
         }
 
 
-        class FullscreenPassToTexturePass : ScriptableRenderPass
+        class FullScreenPass : ScriptableRenderPass
         {
             public string name;
             public Material fullScreenMaterial;
@@ -73,7 +74,7 @@ namespace SamsBackpack.RenderFeatureStash
                             passData.inputs[i] = default;
                         else
                         {
-                            TextureHandle handle = textureStash.GetTexture(input.textureInfo, renderGraph, ressourceData.cameraColor);
+                            TextureHandle handle = textureStash.GetTexture(input.textureInfo, renderGraph, ressourceData);
                             passData.inputs[i] = (inputs[i].propertyName, handle);
                             builder.UseTexture(handle, AccessFlags.Read);
                         }
@@ -85,7 +86,7 @@ namespace SamsBackpack.RenderFeatureStash
                     builder.UseTexture(passData.dummy, AccessFlags.Read);
 
                     //Set output
-                    TextureHandle targetHandle = textureStash.GetTexture(target, renderGraph, ressourceData.cameraColor);
+                    TextureHandle targetHandle = textureStash.GetTexture(target, renderGraph, ressourceData);
                     builder.SetRenderAttachment(targetHandle, 0);
                     builder.SetRenderFunc((PassData data, RasterGraphContext context) => ExecutePass(data, context));
                 }

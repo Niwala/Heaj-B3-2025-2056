@@ -7,9 +7,10 @@ using System.Collections.Generic;
 
 namespace SamsBackpack.RenderFeatureStash
 {
-    public class StashPingPongFeature : ScriptableRendererFeature
+    public class StashPingPongRenderFeature : ScriptableRendererFeature
     {
         public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
+        public CameraType cameraTypeMask = CameraType.Game | CameraType.SceneView | CameraType.Reflection | CameraType.VR;
         public Material fullScreenMaterial;
 
         public TextureInfo textureA;
@@ -39,7 +40,8 @@ namespace SamsBackpack.RenderFeatureStash
             pass.textureB = textureB;
             pass.inputs = inputs;
 
-            if (fullScreenMaterial == null || textureA == null || textureB == null || blitCount <= 0)
+            if (fullScreenMaterial == null || textureA == null || textureB == null || blitCount <= 0
+                 || !cameraTypeMask.HasFlag(renderingData.cameraData.cameraType))
                 return;
 
             renderer.EnqueuePass(pass);
@@ -90,7 +92,7 @@ namespace SamsBackpack.RenderFeatureStash
                                 passData.inputs[i] = default;
                             else
                             {
-                                TextureHandle handle = textureStash.GetTexture(input.textureInfo, renderGraph, ressourceData.cameraColor);
+                                TextureHandle handle = textureStash.GetTexture(input.textureInfo, renderGraph, ressourceData);
                                 passData.inputs[i] = (inputs[i].propertyName, handle);
                                 builder.UseTexture(handle, AccessFlags.Read);
                             }
@@ -102,12 +104,12 @@ namespace SamsBackpack.RenderFeatureStash
                         passData.blitIndex = j;
 
                         //Source
-                        passData.source = textureStash.GetTexture((j % 2 == 0) ? textureA : textureB, renderGraph, ressourceData.cameraColor);
+                        passData.source = textureStash.GetTexture((j % 2 == 0) ? textureA : textureB, renderGraph, ressourceData);
                         builder.UseTexture(passData.source, AccessFlags.Read);
 
 
                         //Set output
-                        TextureHandle targetHandle = textureStash.GetTexture((j % 2 == 0) ? textureB : textureA, renderGraph, ressourceData.cameraColor);
+                        TextureHandle targetHandle = textureStash.GetTexture((j % 2 == 0) ? textureB : textureA, renderGraph, ressourceData);
                         builder.SetRenderAttachment(targetHandle, 0);
                         builder.SetRenderFunc((PassData data, RasterGraphContext context) => ExecutePass(data, context));
                     }
@@ -124,10 +126,9 @@ namespace SamsBackpack.RenderFeatureStash
                     data.fullScreenMaterial.SetTexture(data.inputs[i].Item1, data.inputs[i].Item2);
                 }
 
-
                 context.cmd.SetGlobalTexture(data.sourceTexName, data.source);
-                data.fullScreenMaterial.SetInt("_BlitIndex", data.blitIndex);
-                data.fullScreenMaterial.SetInt("_Ping", data.blitIndex % 2);
+                context.cmd.SetGlobalFloat("_BlitIndex", data.blitIndex);
+                context.cmd.SetGlobalFloat("_Ping", data.blitIndex % 2);
 
                 //Blit
                 Blitter.BlitTexture(context.cmd, data.source, new Vector4(1, 1, 0, 0), data.fullScreenMaterial, 0);

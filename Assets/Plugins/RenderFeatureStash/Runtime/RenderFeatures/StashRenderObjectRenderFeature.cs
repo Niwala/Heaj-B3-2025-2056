@@ -4,14 +4,13 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering.RendererUtils;
-using System.Collections.Generic;
-using UnityEngine.Assertions.Must;
 
 namespace SamsBackpack.RenderFeatureStash
 {
-    public class RenderObjectToTexture : ScriptableRendererFeature
+    public class StashRenderObjectRenderFeature : ScriptableRendererFeature
     {
         public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
+        public CameraType cameraTypeMask = CameraType.Game | CameraType.SceneView | CameraType.Reflection | CameraType.VR;
 
         [Header("Target")]
         public TextureInfo target;
@@ -30,24 +29,12 @@ namespace SamsBackpack.RenderFeatureStash
         public Shader shader;
         public int shaderPassIndex;
 
-        private RenderToTexturePass pass;
+        private StashRenderObjectPass pass;
 
-
-        /// <inheritdoc/>
         public override void Create()
         {
-            pass = new RenderToTexturePass();
+            pass = new StashRenderObjectPass();
             pass.renderPassEvent = renderPassEvent;
-
-            // You can request URP color texture and depth buffer as inputs by uncommenting the line below,
-            // URP will ensure copies of these resources are available for sampling before executing the render pass.
-            // Only uncomment it if necessary, it will have a performance impact, especially on mobiles and other TBDR GPUs where it will break render passes.
-            //m_ScriptablePass.ConfigureInput(ScriptableRenderPassInput.Color | ScriptableRenderPassInput.Depth);
-
-            // You can request URP to render to an intermediate texture by uncommenting the line below.
-            // Use this option for passes that do not support rendering directly to the backbuffer.
-            // Only uncomment it if necessary, it will have a performance impact, especially on mobiles and other TBDR GPUs where it will break render passes.
-            //m_ScriptablePass.requiresIntermediateTexture = true;
         }
 
         protected override void Dispose(bool disposing)
@@ -71,7 +58,7 @@ namespace SamsBackpack.RenderFeatureStash
             pass.overrideShaderPassIndex = shaderPassIndex;
 
 
-            if (target == null)
+            if (target == null || !cameraTypeMask.HasFlag(renderingData.cameraData.cameraType))
                 return;
 
             pass.name = name;
@@ -84,7 +71,7 @@ namespace SamsBackpack.RenderFeatureStash
             CustomTexture
         }
 
-        class RenderToTexturePass : ScriptableRenderPass
+        class StashRenderObjectPass : ScriptableRenderPass
         {
             public string name;
 
@@ -100,16 +87,10 @@ namespace SamsBackpack.RenderFeatureStash
             public Shader overrideShader;
             public int overrideShaderPassIndex;
 
-
-            public RenderToTexturePass()
-            {
-            }
-
             private class PassData
             {
                 public RendererListHandle renderList;
             }
-
 
             public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
             {
@@ -144,7 +125,7 @@ namespace SamsBackpack.RenderFeatureStash
                     passData.renderList = renderGraph.CreateRendererList(renderListDesc);
                     builder.UseRendererList(passData.renderList);
 
-                    TextureHandle dstTexture = stash.GetTexture(target, renderGraph, resourceData.activeColorTexture);
+                    TextureHandle dstTexture = stash.GetTexture(target, renderGraph, resourceData);
                     builder.SetRenderAttachment(dstTexture, 0);
                     builder.SetRenderFunc((PassData data, RasterGraphContext context) => ExecutePass(data, context));
                 }
